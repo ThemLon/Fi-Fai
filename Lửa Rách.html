@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<header>
+    <title>NC Hoài</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.15.7/lib/theme-chalk/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <style>
+* {
+            padding: 0;
+            margin: 0;
+  color:#ffffff;
+        }
+
+        .ayimgui {			
+            position: fixed;
+            width: 310px;
+            height: 280px;
+            top: calc(100% - 180px);
+            left: calc(100% - 180px);
+            z-index: 999;
+            background: rgba(120, 94, 94, 0.8); /*0.5 là % tỉ lệ trong suốt của background*/
+            background-size: 25599px;
+            overflow: hidden;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+        }
+
+      .onlyTitle {
+            height: 25px !important;
+
+        }
+    
+
+     .ayimgui .aytitle {
+            padding: 0 1px;
+            font-size: 20px;
+            background-color: #00eaff;
+        } 
+
+
+        .ayimgui .aytitle .titleClose {
+            position: absolute;
+            top: 3px;
+            right: 6px;
+            color: #00ffd0;
+        }
+
+        .ayimgui .aytitle .titleClose:hover {
+            color: #ff0400;
+        }
+
+        .ayimgui .aybody {
+            padding: 15px;
+            height: calc(100% - 21px - 15px - 15px);
+            /*减去标题高度，减去上线padding高度*/
+            overflow: auto;
+            font-size: 15px;
+        }
+
+
+        .aytext {
+            width: 100%;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            color: #fff;
+        }
+
+
+        input[type=checkbox]{
+ visibility: hidden;
+ vertical-align:middle; margin-bottom:1px;
+ cursor: pointer;
+ position: relative;
+ width: 26px;
+ height:30px;
+
+
+}
+input[type=checkbox]::after{
+ position: absolute;
+ top: 0;
+ margin-top:1px;
+ width: 22px; height: 22px;
+ border: 1px solid #2e2c38;
+ border-radius: 30px;
+ background-color:#2e2c38;
+ display: inline-block;
+ visibility: visible;
+ text-align: center;
+ content: ' '
+
+}
+
+/* Sửa tất cả các màu thành màu ngẫu nhiên */
+input[type=checkbox]:checked::after {
+    content: "✓";
+    color:#489af7;
+    border-color: #2e2c38;
+    background-color: #2e2c38;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+
+input[type=lradio]  {
+    width:20px;
+    height:20px;
+    margin-right:6px;
+    border:none;
+    outline-style:none;
+    -webkit-appearance:none;
+    vertical-align:middle;
+    border:1px solid #686868F0;
+    border-radius:50%;
+}
+input[type=lradio]:checked {
+    border:6px solid #2F7DCDF0;
+    background:#E8E8E8;
+}
+
+
+        .onlySelect {
+            background-color: rgb(254, 254, 254);
+            border: none;
+        }
+
+        .onlySelect .el-select-dropdown__item {
+            color: #000;
+
+        }
+
+        .onlySelect .el-select-dropdown__item.hover,
+        .el-select-dropdown__item:hover:hover {
+            background-color: transparent;
+        }
+
+        .onlySelect .popper__arrow {
+            border-bottom-color: rgb(254, 254, 254) !important;
+        }
+
+        .onlySelect.el-popper[x-placement^=bottom] .popper__arrow::after {
+            border-bottom-color: rgb(8254, 254, 254) !important;
+        }
+
+        .el-select {
+            width: 100%;
+        }
+
+        .el-select .el-input {
+            background-color: rgb(254, 254, 254);
+        }
+
+        .el-select .el-input__suffix {
+            background-color: rgb(160, 196, 243);
+            color: #000;
+            right: 0;
+        }
+
+        .el-select .el-select__caret {
+            color: #000;
+        }
+
+        .el-select .el-input__inner {
+            background-color: transparent;
+            border: none;
+            color: #000;
+        }
+
+        .el-select .el-input .el-select__caret {
+            color: #000;
+        }
+
+        
+        .el-scrollbar .el-scrollbar__bar {
+            opacity: 1 !important;
+        }
+
+        .el-button {
+            font-size: 0px;
+            padding: 0px 0px;
+            line-height: 0px;
+            color: #66faff;
+            background-color: #1eff00;
+        }
+
+        .el-button:hover {
+            opacity: .7;
+            color: #66faff;
+            background-color: #66faff;
+        }
+
+        .el-button:focus,
+        .el-button:hover {
+            color: #66faff;
+            background-color: #66faff;
+        }
+
+        .aycollapse {
+            width: 100%;
+            font-size: 14px;
+            background-color: rgb(177, 206, 240);
+            color: #000;
+        }
+
+        .aytab {
+            width: 100%;
+            height: 25px;
+            display: flex;
+            border-bottom: 2px solid rgb(200, 217, 233);
+        }
+
+        .aytab span {
+            padding: 1 2 px;
+            height: 100%px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(189, 199, 208);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            margin-left: 2px;
+            border-radius: 6px 6px 0 0;
+            cursor: pointer;
+        }
+
+
+        .el-input input {
+            background-color: rgb(254, 254, 254);
+            border: none;
+            border-radius: 0px;
+        
+        }
+        
+input[type=range] {
+  -webkit-appearance: none;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  height: 21px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: #5c5870;
+  border-radius: 100px;
+}
+input[type=range]::-webkit-slider-thumb {
+  border: 1px solid #000000;
+  height: 21px;
+  width: 21px;
+  border-radius: 30px;
+  background: #489af7;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -0px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #0d1804;
+}
+input[type=range]::-webkit-slider-thumb::after {
+  content: attr(value) "%";
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+
+    </style>
+</header>
+</script>
+<body>
+ 
+<div id="app">
+        <div :class="!ifshow?'onlyTitle ayimgui':'ayimgui'" ref="menuMain">
+            <div class="aytitle" @touchstart="titleTouchStart" @touchmove="titleTouchMove">
+                <i :class="ifshow?'el-icon-caret-bottom':'el-icon-caret-top'" @click="ifshow = !ifshow" style="color: white"></i>
+<span class="title-age" style="margin-left:15px;font-size: 15px; color: white;">MENU FREE NC HOÀI</span>
+            
+            </div>
+            <div class="aybody">
+                <div class="aytab">
+                    <span @click="changeTab('free')"
+                        :style="{background:tabValue==='one'?'':''}">FREE</span>
+                    <span @click="changeTab('nchoai')"
+                        :style="{background:tabValue==='tue'?'':''}">Contact</span>
+                </div>
+                
+  <script src="./template - Copy_files/jquery.min.js.tải xuống"></script>
+<script>
+
+    
+
+
+
+
+var codeStatus = false;
+function modifyValue(searchValue, replaceValue, addressEndsWith, addressEndsWith2, alertMessage) {
+    h5gg.clearResults();
+    h5gg.searchNumber(searchValue, 'I32', '0x10000000', '0x160000000');
+    const results = h5gg.getResults(h5gg.getResultsCount());
+    let modifiedCount = 0;
+    results.forEach(result => {
+        if (result.address.endsWith(addressEndsWith) || result.address.endsWith(addressEndsWith2)) {
+            h5gg.setValue(result.address, replaceValue.toString(), 'I32');
+            modifiedCount++;
+            
+           
+
+        }
+    });
+    if (modifiedCount > 0) {
+        if (alertMessage) alert(alertMessage);
+    } else if (alertMessage) {
+        alert("Lỗi");
+    }
+}
+
+function fs0(input) {//anti
+    if (input.checked) {
+h5gg.clearResults();
+modifyValue(-1042808832,1120403456,'');
+alert("Antiban On");        
+h5gg.clearResults();
+        codeStatus = true;
+    } else {      
+alert("Antiban Chỉ Bật Ko Thể Tắt");
+        codeStatus = false;
+    }
+}
+function fs1(input) {//anti
+    if (input.checked) {
+h5gg.clearResults();
+modifyValue(134402, 84148993, '');
+modifyValue(132228, 133890, '');
+modifyValue(132176, 133890, '');
+h5gg.clearResults();
+alert("Antiban On");        
+h5gg.clearResults();
+codeStatus = true;
+    } else {      
+alert("Antiban Chỉ Bật Ko Thể Tắt");
+        codeStatus = false;
+    }
+}
+function fs2(input) {
+    if (input.checked) {
+h5gg.clearResults();
+h5gg.searchNumber('1057048494','I32','0x100000000', '0x160000000');
+h5gg.editAll('-2000', 'I32');
+h5gg.clearResults();
+h5gg.searchNumber('1054951342','I32','0x100000000', '0x160000000');
+h5gg.editAll('-2000', 'I32');
+h5gg.clearResults();
+h5gg.searchNumber('1053273620','I32','0x100000000', '0x160000000');
+h5gg.editAll('-2000', 'I32');
+alert("Aim 180 On");
+h5gg.clearResults();
+        codeStatus = true;
+    } else { 
+h5gg.clearResults();
+h5gg.searchNumber('-20000','I32','0x100000000', '0x160000000');
+h5gg.editAll('1053273620', 'I32');
+h5gg.clearResults();
+h5gg.searchNumber('-20000','I32','0x100000000', '0x160000000');
+h5gg.editAll('1054951342', 'I32');
+h5gg.clearResults();
+h5gg.searchNumber('-20000','I32','0x100000000', '0x160000000');
+h5gg.editAll('1053273620', 'I32');
+alert("Aim 180 Off");
+h5gg.clearResults();
+        codeStatus = false;
+    }
+}
+
+function fs5(input) {//đạn thẳng
+    if (input.checked) {
+h5gg.clearResults();
+h5gg.searchNumber('1016018816','I32','0x100000000', '0x160000000');
+h5gg.editAll('0016018816', 'I32');
+alert("Norecoil On");
+h5gg.clearResults();
+        codeStatus = true;
+    } else {      
+h5gg.clearResults();
+h5gg.searchNumber('0016018816','I32','0x100000000', '0x160000000');
+h5gg.editAll('1016018816', 'I32');
+alert("Norecoil Off");
+h5gg.clearResults();
+        codeStatus = false;
+    }
+}
+function fs7(input) {//nhẹ tâm 
+    if (input.checked) {
+h5gg.clearResults();
+modifyValue(3145840, 49, 'I32');
+alert("Nhẹ Tâm On");
+h5gg.clearResults();
+        codeStatus = true;
+    } else {      
+h5gg.clearResults();
+modifyValue(49, 3145840, 'I32');
+alert("Nhen Tâm Off");
+h5gg.clearResults();
+        codeStatus = false;
+    }
+}
+
+
+function fs11(input) {
+    if (input.checked) {
+h5gg.clearResults();
+h5gg.searchNumber('4575657222443971598','I64','0x100000000', '0x130000000');
+h5gg.editAll('4848124999899886606', 'I64');
+h5gg.clearResults();
+h5gg.searchNumber('4575657224578539469','I64','0x100000000', '0x130000000');
+h5gg.editAll('4848125002034454477', 'I64');
+alert("Antena Tay On");
+h5gg.clearResults();
+        codeStatus = true;
+    } else {     
+h5gg.clearResults();
+h5gg.searchNumber('4848124999899886606','I64','0x100000000', '0x130000000');
+h5gg.editAll('4575657222443971598', 'I64');
+h5gg.clearResults();
+h5gg.searchNumber('4848125002034454477','I64','0x100000000', '0x130000000');
+h5gg.editAll('4575657224578539469', 'I64');
+alert("Antena Tay Off");
+h5gg.clearResults();
+        codeStatus = false;
+    }
+}
+
+
+/*
+
+h5gg.require(7.9); 
+var h5frida=h5gg.loadPlugin("h5frida", "h5frida-16.0.10.dylib");
+if(!h5frida) throw "Failed to load h5frida plugin";
+
+function ActiveCodePatch(fpath, vaddr, bytes) {
+    if(!h5frida.ActiveCodePatch(fpath, vaddr, bytes)) {
+        var result = h5frida.ApplyCodePatch(fpath, vaddr, bytes);
+        alert(fpath+":0x"+vaddr.toString(16)+"-修改失败!\n" + fpath+":0x"+vaddr.toString(16)+"-PatchFailed!\n" + result);return false;
+    } return true;
+}
+function DeactiveCodePatch(fpath, vaddr, bytes) {
+    return h5frida.DeactiveCodePatch(fpath, vaddr, bytes);
+}
+*/
+
+
+</script>
+<body> 
+<div class="container">
+    <div id="titleBar">
+        <div v-show="tabValue==='free'">
+        <div class="aycollapse" @click="showOption = !showOption" style="cursor:pointer; border-radius: 20px; background-color: #ff0606;">
+            
+        </div>
+
+        <el-collapse-transition>
+   <div><br>
+<input onclick="fs0(this)" name="radio-group0" type="checkbox" id="checkbox0" />
+       <label for="checkbox0" class="checkbox-label" style="margin-right: 40px;">Bypass (Login)</label>
+<br>
+<input onclick="fs1(this)" name="radio-group1" type="checkbox" id="checkbox1" />
+       <label for="checkbox1" class="checkbox-label" style="margin-right: 40px;">Antiban (login)</label>
+<br>
+<input onclick="fs2(this)" name="radio-group2" type="checkbox" id="checkbox2" />
+<label for="checkbox2" class="checkbox-label" style="margin-right: 40px;">Aim 180</label>
+<br>
+<input onclick="fs5(this)" name="radio-group5" type="checkbox" id="checkbox5" />
+       <label for="checkbox5" class="checkbox-label" style="margin-right: 40px;">Norecoil</label>
+<br>
+<input onclick="fs11(this)" name="radio-group30" type="checkbox" id="checkbox30" />
+       <label for="checkbox30" class="checkbox-label" style="margin-right: 40px;">Antena Tay</label>
+<br>
+<input onclick="fs7(this)" name="radio-group19" type="checkbox" id="checkbox19" />
+           <label for="checkbox19" class="checkbox-label" style="margin-right: 40px;">Nhẹ Tâm</label>
+    <br>
+    <script type="text/javascript">document.write('\u003c\u0073\u0074\u0072\u006f\u006e\u0067\u003e\u0042\u1ea3\u006e\u0020\u0046\u0072\u0065\u0065\u0020\u0042\u0079\u0020\u004e\u0043\u0020\u0048\u006f\u00e0\u0069\u003c\u002f\u0073\u0074\u0072\u006f\u006e\u0067\u003e')</script>
+</div>
+</div>
+</div>
+    <div class="container">
+    <div id="titleBar">
+        <div v-show="tabValue==='nchoai'">
+        <div class="aycollapse" @click="showOption = !showOption" style="cursor:pointer; border-radius: 20px; background-color: #00bed3;">
+            
+        </div>
+
+        <el-collapse-transition>
+   <div>
+<br>
+            <script type="text/javascript">document.write('\u0020\u003c\u0064\u0069\u0076\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0023\u0066\u0061\u0066\u0037\u0066\u0037\u003b\u0022\u003e\u0020\u004d\u0045\u004e\u0055\u0020\u0046\u0052\u0045\u0045\u0020\u0042\u0059\u0020\u004e\u0043\u0020\u0048\u004f\u00c0\u0049\u000a\u003c\u0062\u0072\u003e\u0020\u000a\u000a\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u003c\u0062\u0072\u003e\u0020\u0020\u003c\u0062\u0075\u0074\u0074\u006f\u006e\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0062\u0061\u0063\u006b\u0067\u0072\u006f\u0075\u006e\u0064\u002d\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0072\u0067\u0062\u0028\u0032\u0035\u0035\u002c\u0020\u0032\u0035\u0035\u002c\u0020\u0032\u0035\u0035\u0029\u003b\u0068\u0065\u0069\u0067\u0068\u0074\u003a\u0020\u0033\u0030\u0070\u0078\u003b\u0077\u0069\u0064\u0074\u0068\u003a\u0020\u0039\u0030\u0025\u003b\u0062\u006f\u0072\u0064\u0065\u0072\u002d\u0072\u0061\u0064\u0069\u0075\u0073\u003a\u0020\u0031\u0030\u0070\u0078\u003b\u0020\u0022\u003e\u003c\u0061\u0020\u0068\u0072\u0065\u0066\u003d\u0022\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0067\u0072\u006e\u0063\u0068\u006f\u0061\u0069\u0022\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0074\u0065\u0078\u0074\u002d\u0064\u0065\u0063\u006f\u0072\u0061\u0074\u0069\u006f\u006e\u003a\u0020\u006e\u006f\u006e\u0065\u003b\u0022\u003e\u003c\u0073\u0074\u0072\u006f\u006e\u0067\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0023\u0030\u0030\u0030\u003b\u0020\u0066\u006f\u006e\u0074\u002d\u0073\u0069\u007a\u0065\u003a\u0020\u0031\u0035\u0070\u0078\u003b\u0022\u003e\u0047\u0072\u006f\u0075\u0070\u0020\u0054\u0065\u006c\u0065\u0067\u0072\u0061\u006d\u003c\u002f\u0073\u0074\u0072\u006f\u006e\u0067\u003e\u003c\u002f\u0061\u003e\u003c\u002f\u0062\u0075\u0074\u0074\u006f\u006e\u003e\u003c\u0062\u0072\u003e\u0020\u003c\u0062\u0072\u003e\u000a\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u003c\u0062\u0075\u0074\u0074\u006f\u006e\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0062\u0061\u0063\u006b\u0067\u0072\u006f\u0075\u006e\u0064\u002d\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0072\u0067\u0062\u0028\u0032\u0035\u0035\u002c\u0020\u0032\u0035\u0035\u002c\u0020\u0032\u0035\u0035\u0029\u003b\u0068\u0065\u0069\u0067\u0068\u0074\u003a\u0020\u0033\u0030\u0070\u0078\u003b\u0077\u0069\u0064\u0074\u0068\u003a\u0020\u0039\u0030\u0025\u003b\u0062\u006f\u0072\u0064\u0065\u0072\u002d\u0072\u0061\u0064\u0069\u0075\u0073\u003a\u0020\u0031\u0030\u0070\u0078\u003b\u0020\u0022\u003e\u003c\u0061\u0020\u0068\u0072\u0065\u0066\u003d\u0022\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u0063\u0068\u0061\u0074\u0067\u0072\u006e\u0065\u0074\u0062\u0072\u0065\u0061\u006b\u0065\u0072\u0073\u0022\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0074\u0065\u0078\u0074\u002d\u0064\u0065\u0063\u006f\u0072\u0061\u0074\u0069\u006f\u006e\u003a\u0020\u006e\u006f\u006e\u0065\u003b\u0022\u003e\u003c\u0073\u0074\u0072\u006f\u006e\u0067\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0023\u0030\u0030\u0030\u003b\u0020\u0066\u006f\u006e\u0074\u002d\u0073\u0069\u007a\u0065\u003a\u0020\u0031\u0035\u0070\u0078\u003b\u0022\u003e\u0047\u0072\u006f\u0075\u0070\u0020\u0043\u0068\u0061\u0074\u003c\u002f\u0073\u0074\u0072\u006f\u006e\u0067\u003e\u003c\u002f\u0061\u003e\u003c\u002f\u0062\u0075\u0074\u0074\u006f\u006e\u003e\u003c\u0062\u0072\u003e\u0020\u003c\u0062\u0072\u003e\u000a\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u003c\u0062\u0075\u0074\u0074\u006f\u006e\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0062\u0061\u0063\u006b\u0067\u0072\u006f\u0075\u006e\u0064\u002d\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0072\u0067\u0062\u0028\u0032\u0035\u0035\u002c\u0020\u0032\u0035\u0035\u002c\u0020\u0032\u0035\u0035\u0029\u003b\u0068\u0065\u0069\u0067\u0068\u0074\u003a\u0020\u0033\u0030\u0070\u0078\u003b\u0077\u0069\u0064\u0074\u0068\u003a\u0020\u0039\u0030\u0025\u003b\u0062\u006f\u0072\u0064\u0065\u0072\u002d\u0072\u0061\u0064\u0069\u0075\u0073\u003a\u0020\u0031\u0030\u0070\u0078\u003b\u0020\u0022\u003e\u003c\u0061\u0020\u0068\u0072\u0065\u0066\u003d\u0022\u0068\u0074\u0074\u0070\u0073\u003a\u002f\u002f\u0074\u002e\u006d\u0065\u002f\u006e\u0067\u0075\u0079\u0065\u006e\u0063\u0061\u006f\u0068\u006f\u0061\u0069\u0037\u0037\u0022\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0074\u0065\u0078\u0074\u002d\u0064\u0065\u0063\u006f\u0072\u0061\u0074\u0069\u006f\u006e\u003a\u0020\u006e\u006f\u006e\u0065\u003b\u0022\u003e\u003c\u0073\u0074\u0072\u006f\u006e\u0067\u0020\u0073\u0074\u0079\u006c\u0065\u003d\u0022\u0063\u006f\u006c\u006f\u0072\u003a\u0020\u0023\u0030\u0030\u0030\u003b\u0020\u0066\u006f\u006e\u0074\u002d\u0073\u0069\u007a\u0065\u003a\u0020\u0031\u0035\u0070\u0078\u003b\u0022\u003e\u0054\u0065\u006c\u0065\u0067\u0072\u0061\u006d\u0020\u004e\u0043\u0020\u0048\u006f\u00e0\u0069\u003c\u002f\u0073\u0074\u0072\u006f\u006e\u0067\u003e\u003c\u002f\u0061\u003e\u003c\u002f\u0062\u0075\u0074\u0074\u006f\u006e\u003e\u003c\u0062\u0072\u003e\u0020\u003c\u0062\u0072\u003e\u000a\u0020\u0020\u0020\u0020\u000a\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u003c\u002f\u0064\u0069\u0076\u003e')</script>
+    
+                    
+        
+
+                            
+                        </div>	
+
+                
+
+            
+                </div>
+            
+                            
+                            </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    ifshow: true,
+                    checked: false,
+                    radio: '3',
+                    activeSelect: '',
+                    selectOption: [{
+                
+                    }],
+                    input: "",
+                    showOption: false,
+                    tabValue: "one",
+                }
+            },
+            mounted() {
+                this.setRect(360, 320);
+
+                //设置不可拖动
+                setWindowDrag(0, 0, 0, 0);
+    
+                var layout = function()
+                {
+                    //window.orientation是设备握持方向, 不是屏幕显示方向
+                    if(window.lastorientation==window.orientation) return;
+                    window.lastorientation=window.orientation;
+                
+                    //window.screen中的宽高不会随着屏幕旋转更新(只会在初始化的时候固定)
+                    if(Math.abs(window.orientation)==90) {
+                        //横屏模式
+                        setWindowRect(0,0,window.screen.height,window.screen.width);
+                    } else {
+                        //竖屏模式
+                        setWindowRect(0,0,window.screen.width,window.screen.height);
+                    }
+                }
+    
+                layout(); //设置旋转屏幕时自动调整布局和画布
+                window.addEventListener("orientationchange", layout, false);
+
+                setButtonAction(function () {
+                    var menu = document.querySelector("#app");
+                    if (menu.style.display == 'none') {
+                        menu.style.display = 'block';
+                        //显示菜单之后, 设置触控不可穿透悬浮窗口
+                        setWindowTouch(true);
+                    } else {
+                        menu.style.display = 'none';
+                        //隐藏菜单之后, 设置触控穿透悬浮窗口
+                        setWindowTouch(false);
+                    }
+                });
+            },
+
+            methods: {
+    setRect(w, h, x = -1, y = -1) {
+     var boxW = w;
+     var boxH = h;
+
+     var ayMenu = this.$refs.menuMain;
+     ayMenu.style.width = `${boxW}px`;
+     ayMenu.style.height = `${boxH}px`;
+     if (x == -1) ayMenu.style.left = `calc(50% - ${boxW / 2}px)`;
+     if (y == -1) ayMenu.style.top = `calc(50% - ${boxH / 2}px)`;
+
+ ayMenu.style.width= "210px";
+ ayMenu.style.height= "320px";
+
+            
+            
+
+    ayMenu.style.borderBottomLeftRadius = "6px";
+    ayMenu.style.borderBottomRightRadius = "6px";
+    ayMenu.style.borderTopLeftRadius = "6px";
+    ayMenu.style.borderTopRightRadius = "6px";              
+    },
+    titleTouchStart(event) {
+     this.touchStartX = parseInt(event.touches[0].clientX);
+     this.touchStartY = parseInt(event.touches[0].clientY);
+
+     var ayMenu = this.$refs.menuMain;
+     this.menuLastX = ayMenu.offsetLeft;
+     this.menuLastY = ayMenu.offsetTop;
+    },
+    titleTouchMove(event) {
+     event.preventDefault();
+     var distanceX = event.touches[0].clientX - this.touchStartX;
+     var distanceY = event.touches[0].clientY - this.touchStartY;
+
+     var ayMenu = this.$refs.menuMain;
+     ayMenu.style.left = this.menuLastX + distanceX + "px";
+     ayMenu.style.top = this.menuLastY + distanceY + "px";
+    },
+    //切换导航栏
+    changeTab(v) {
+     this.tabValue = v;
+    },
+    closeimgui() {
+     var menu = document.querySelector("#app");
+     menu.style.display = 'none';
+    }
+   }
+  });
+</script>
+</body>
+</html>
+
+
